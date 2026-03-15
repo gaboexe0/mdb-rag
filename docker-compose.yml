@@ -1,0 +1,16 @@
+services:
+  mariadb:
+    image: mariadb:11.8
+    environment:
+      MARIADB_ROOT_PASSWORD: test
+      MARIADB_DATABASE: testdb
+      MARIADB_USER: testuser
+      MARIADB_PASSWORD: testpass
+    ports:
+      - "3307:3306"
+    healthcheck:
+      test: ["CMD", "mariadb", "-u", "testuser", "-ptestpass", "-e", "SELECT 1"]
+      interval: 3s
+      timeout: 5s
+      retries: 15
+      start_period: 20s
